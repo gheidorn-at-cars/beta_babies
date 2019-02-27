@@ -1,0 +1,20 @@
+<div class="">
+    <h1>Beta Baby:  <%= @baby.name %></h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Baby Name</th>
+                <th>Parent Name</th>
+                <th>Due Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><%= @baby.name %></td>
+                <td><%= @baby.parent_name %></td>
+                <td><%= @baby.due_date %></td>
+            </tr>
+        </tbody>
+    </table>
+    <%= link "Back to Babies", to: Routes.baby_path(@conn, :index) %>
+</div>

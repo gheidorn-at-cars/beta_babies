@@ -1,0 +1,19 @@
+<div class="">
+    <table class="table">
+        <h1>Beta Babies</h1>
+        <thead>
+            <tr>
+                <th>Baby Name</th>
+                <th>Parent Name</th>
+                <th>Due Date</th>
+            </tr>
+        </thead>
+        <%= for baby <- @babies do %>
+            <tr>
+                <td><%= link "#{baby.name}", to: Routes.baby_path(@conn, :show, baby.name) %></td>
+                <td><%= baby.parent_name %></td>
+                <td><%= baby.due_date %></td>
+            </tr>
+        <% end %>
+    </table>
+</div>

@@ -1,0 +1,23 @@
+<div>
+    <h2>Add a Baby</h2>
+<%= if @changeset.action do %>
+<div class="alert alert-danger">
+<p>Oops, something went wrong! Please check the errors below.</p>
+</div>
+<% end %>
+    <%= form_for @changeset, Routes.baby_path(@conn, :create), fn f -> %>
+        <label>
+            Name: <%= text_input f, :name %>
+            <%= error_tag f, :name %>
+        </label>
+        <label>
+            Parent's Name: <%= text_input f, :parent_name %>
+            <%= error_tag f, :parent_name %>
+        </label>
+        <label>
+            Due Date: <%= text_input f, :due_date %>
+            <%= error_tag f, :due_date %>
+        </label>
+        <%= submit "Submit" %>
+    <% end %>
+</div>
