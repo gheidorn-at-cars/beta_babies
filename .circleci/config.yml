@@ -2,22 +2,43 @@
 #
 # Check https://circleci.com/docs/2.0/language-elixir/ for more details
 version: 2
+defaults: &defaults
+  working_directory: ~/beta_babies
+  docker:
+    - image: elixir:1.8.0
+      environment:
+        MIX_ENV: test
+    - image: circleci/postgres:9.6.2-alpine
+      environment:
+        POSTGRES_USER: postgres
+        POSTGRES_PASSWORD: cars123
+
 jobs:
   build:
-    docker:
-      # specify the version here
-      - image: circleci/elixir:1.8.0
-
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/postgres:9.4
-
-    working_directory: ~/repo
+    <<: *defaults
     steps:
       - checkout
-
-      # specify any bash command here prefixed with `run: `
+      - restore_cache:
+          keys:
+            - v2-dependency-cache-{{ checksum "mix.lock" }}
+            - v2-dependency-cache
+      - run: mix local.hex --force
+      - run: mix local.rebar --force
       - run: mix deps.get
-      - run: mix ecto.create
-      - run: mix test
+      - run: mix deps.compile
+      - run: mix compile
+      - run:
+          command: mix compile
+          environment:
+            MIX_ENV: test
+      - save_cache:
+          key: v2-dependency-cache-{{ checksum "mix.lock" }}
+          paths:
+            - _build
+            - deps
+            - ~/.mix
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - beta_babies
+            - .mix
