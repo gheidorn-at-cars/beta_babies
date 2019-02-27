@@ -13,6 +13,22 @@ defaults: &defaults
         POSTGRES_USER: postgres
         POSTGRES_PASSWORD: cars123
 
+aliases:
+  - &step_wait_for_db
+    name: Wait for DB
+    command: |
+      apt-get update
+      apt install postgresql-client -y
+      ATTEMPTS=10
+      until PGPASSWORD=cars123 psql -h 127.0.0.1 -U postgres -d postgres -c "select 1" > /dev/null 2>&1; do
+        if [ $ATTEMPTS -eq 0 ]; then
+          echo "Unable to connect to postgres!!"
+          exit 1
+        fi
+        echo "Waiting for postgres server, $((ATTEMPTS--)) remaining attempts..."
+        sleep 1
+      done
+
 jobs:
   build:
     <<: *defaults
@@ -42,3 +58,34 @@ jobs:
           paths:
             - beta_babies
             - .mix
+
+  test:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: ~/
+      - run: *step_wait_for_db
+      - run:
+          name: Run tests
+          command: mix test --trace
+
+  format:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: ~/
+      - run:
+          name: Run formatter
+          command: mix format --check-formatted
+
+workflows:
+  version: 2
+  conga_line:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
+      - format:
+          requires:
+            - build
