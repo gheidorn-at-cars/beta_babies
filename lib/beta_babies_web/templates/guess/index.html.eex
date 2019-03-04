@@ -1,0 +1,23 @@
+<div class="">
+    <table class="table">
+        <h1>Beta Baby Guesses</h1>
+        <thead>
+            <tr>
+                <th>Guess ID</th>
+                <th>Guesser</th>
+                <th>Baby ID</th>
+                <th>Gender</th>
+                <th>Birth Date</th>
+            </tr>
+        </thead>
+        <%= for guess <- @guesses do %>
+            <tr>
+                <td><%= guess.id %></td>
+                <td><%= link "#{guess.guesser}", to: Routes.guess_path(@conn, :show, guess.id) %></td>
+                <td><%= guess.baby_id %></td>
+                <td><%= guess.gender %></td>
+                <td><%= guess.birth_date %></td>
+            </tr>
+        <% end %>
+    </table>
+</div>

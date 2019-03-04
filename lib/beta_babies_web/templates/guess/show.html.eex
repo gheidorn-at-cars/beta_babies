@@ -1,0 +1,22 @@
+<div class="">
+    <h1>Beta Baby Guess #ID:  <%= @guess.id %></h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Guesser</th>
+                <th>Baby ID</th>
+                <th>Gender</th>
+                <th>Birth Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><%= @guess.guesser %></td>
+                <td><%= @guess.baby_id %></td>
+                <td><%= @guess.gender %></td>
+                <td><%= @guess.birth_date %></td>
+            </tr>
+        </tbody>
+    </table>
+    <%= link "Back to Guesses", to: Routes.guess_path(@conn, :index) %>
+</div>

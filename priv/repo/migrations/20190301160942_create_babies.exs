@@ -1,8 +1,8 @@
-defmodule BetaBabies.Repo.Migrations.CreateBaby do
+defmodule BetaBabies.Repo.Migrations.CreateBabies do
   use Ecto.Migration
 
   def change do
-    create table(:baby) do
+    create table(:babies) do
       add :name, :string
       add :parent_name, :string
       add :due_date, :date
@@ -10,6 +10,5 @@ defmodule BetaBabies.Repo.Migrations.CreateBaby do
       timestamps()
     end
 
-    create unique_index(:baby, [:name])
   end
 end

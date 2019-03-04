@@ -19,6 +19,7 @@ defmodule BetaBabiesWeb.Router do
     get "/", PageController, :index
     get "/baby", BabyController, :index
     resources "/babies", BabyController
+    resources "/guesses", GuessController
   end
 
   # Other scopes may use custom stacks.
