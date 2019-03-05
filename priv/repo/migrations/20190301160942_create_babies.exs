@@ -9,6 +9,5 @@ defmodule BetaBabies.Repo.Migrations.CreateBabies do
 
       timestamps()
     end
-
   end
 end

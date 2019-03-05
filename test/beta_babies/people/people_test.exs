@@ -7,7 +7,11 @@ defmodule BetaBabies.PeopleTest do
     alias BetaBabies.People.Baby
 
     @valid_attrs %{due_date: ~D[2010-04-17], name: "some name", parent_name: "some parent_name"}
-    @update_attrs %{due_date: ~D[2011-05-18], name: "some updated name", parent_name: "some updated parent_name"}
+    @update_attrs %{
+      due_date: ~D[2011-05-18],
+      name: "some updated name",
+      parent_name: "some updated parent_name"
+    }
     @invalid_attrs %{due_date: nil, name: nil, parent_name: nil}
 
     def baby_fixture(attrs \\ %{}) do

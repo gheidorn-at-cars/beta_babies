@@ -2,7 +2,6 @@ defmodule BetaBabies.People.Baby do
   use Ecto.Schema
   import Ecto.Changeset
 
-
   schema "babies" do
     field :due_date, :date
     field :name, :string

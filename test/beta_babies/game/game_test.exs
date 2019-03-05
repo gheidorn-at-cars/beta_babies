@@ -7,7 +7,11 @@ defmodule BetaBabies.GameTest do
     alias BetaBabies.Game.Guess
 
     @valid_attrs %{birth_date: ~D[2010-04-17], gender: "some gender", guesser: "some guesser"}
-    @update_attrs %{birth_date: ~D[2011-05-18], gender: "some updated gender", guesser: "some updated guesser"}
+    @update_attrs %{
+      birth_date: ~D[2011-05-18],
+      gender: "some updated gender",
+      guesser: "some updated guesser"
+    }
     @invalid_attrs %{birth_date: nil, gender: nil, guesser: nil}
 
     def guess_fixture(attrs \\ %{}) do
